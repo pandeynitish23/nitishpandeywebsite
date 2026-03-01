@@ -226,7 +226,7 @@ function initContactForm() {
   // My contact info
   const WHATSAPP_NUMBER = '919234770717';
   const LINKEDIN_PROFILE_ID = 'nitish-kumar-pandey-455b641b3';
-  const LINKEDIN_MSG_URL = `https://www.linkedin.com/messaging/compose/?to=${LINKEDIN_PROFILE_ID}`;
+  const LINKEDIN_MSG_URL = `https://www.linkedin.com/messaging/compose/?to=${nitish-kumar-pandey-455b641b3}`;
   const MY_EMAIL = 'nitishkumar.nk.np@gmail.com';
 
   let activeChannel = 'whatsapp';
