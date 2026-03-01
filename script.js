@@ -47,7 +47,7 @@ function initNavbar() {
    ============================================= */
 function initHamburger() {
   const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
+  const navLinks  = document.getElementById('navLinks');
 
   hamburger.addEventListener('click', () => {
     const isOpen = navLinks.classList.toggle('open');
@@ -73,8 +73,8 @@ function initHamburger() {
    ACTIVE NAV LINK on scroll
    ============================================= */
 function setActiveNavLink() {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
+  const sections  = document.querySelectorAll('section[id]');
+  const navLinks  = document.querySelectorAll('.nav-link');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -122,10 +122,10 @@ function initScrollReveal() {
   const skillObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const card = entry.target;
-        const delay = parseInt(card.dataset.delay || 0);
-        const fill = card.querySelector('.skill-fill');
-        const width = fill ? fill.dataset.width : 0;
+        const card    = entry.target;
+        const delay   = parseInt(card.dataset.delay || 0);
+        const fill    = card.querySelector('.skill-fill');
+        const width   = fill ? fill.dataset.width : 0;
 
         setTimeout(() => {
           card.classList.add('animated');
@@ -148,7 +148,7 @@ function initScrollReveal() {
   const tlObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const item = entry.target;
+        const item  = entry.target;
         const delay = parseInt(item.dataset.delay || 0);
         setTimeout(() => item.classList.add('animated'), delay);
         tlObserver.unobserve(item);
@@ -191,11 +191,11 @@ function initCounters() {
 }
 
 function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
+  const target   = parseInt(el.dataset.target);
   const duration = 1800;
-  const step = 60;
-  const steps = Math.ceil(duration / step);
-  let current = 0;
+  const step     = 60;
+  const steps    = Math.ceil(duration / step);
+  let current    = 0;
 
   const timer = setInterval(() => {
     current++;
@@ -217,16 +217,15 @@ function easeOutQuart(t) {
    CONTACT FORM
    ============================================= */
 function initContactForm() {
-  const whatsappBtn = document.getElementById('sendWhatsApp');
-  const linkedInBtn = document.getElementById('sendLinkedIn');
-  const emailBtn = document.getElementById('sendEmail');
-  const form = document.getElementById('contactForm');
-  const statusEl = document.getElementById('formStatus');
+  const whatsappBtn  = document.getElementById('sendWhatsApp');
+  const linkedInBtn  = document.getElementById('sendLinkedIn');
+  const emailBtn     = document.getElementById('sendEmail');
+  const form         = document.getElementById('contactForm');
+  const statusEl     = document.getElementById('formStatus');
 
   // My contact info
   const WHATSAPP_NUMBER = '919234770717';
-  const LINKEDIN_PROFILE_ID = 'nitish-kumar-pandey-455b641b3';
-  const LINKEDIN_MSG_URL = `https://www.linkedin.com/messaging/compose/?to=${nitish-kumar-pandey-455b641b3}`;
+  const LINKEDIN_PROFILE = 'https://www.linkedin.com/in/nitish-kumar-pandey-455b641b3/';
   const MY_EMAIL = 'nitishkumar.nk.np@gmail.com';
 
   let activeChannel = 'whatsapp';
@@ -239,17 +238,17 @@ function initContactForm() {
     activeChannel = channel;
   }
 
-  whatsappBtn.addEventListener('click', () => setActiveChannel(whatsappBtn, 'whatsapp'));
-  linkedInBtn.addEventListener('click', () => setActiveChannel(linkedInBtn, 'linkedin'));
-  emailBtn.addEventListener('click', () => setActiveChannel(emailBtn, 'email'));
+  whatsappBtn.addEventListener('click',  () => setActiveChannel(whatsappBtn, 'whatsapp'));
+  linkedInBtn.addEventListener('click',  () => setActiveChannel(linkedInBtn, 'linkedin'));
+  emailBtn.addEventListener('click',     () => setActiveChannel(emailBtn,    'email'));
 
   // Form submission via channel buttons acts as the submit action
   allChannelBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       // Validate on channel button click too
       if (!form.checkValidity()) {
-        const name = document.getElementById('senderName').value.trim();
-        const email = document.getElementById('senderEmail').value.trim();
+        const name    = document.getElementById('senderName').value.trim();
+        const email   = document.getElementById('senderEmail').value.trim();
         const message = document.getElementById('senderMessage').value.trim();
 
         if (!name || !email || !message) {
@@ -289,8 +288,8 @@ function initContactForm() {
   function submitForm() {
     hideStatus();
 
-    const name = document.getElementById('senderName').value.trim();
-    const email = document.getElementById('senderEmail').value.trim();
+    const name    = document.getElementById('senderName').value.trim();
+    const email   = document.getElementById('senderEmail').value.trim();
     const message = document.getElementById('senderMessage').value.trim();
 
     // Validation
@@ -316,7 +315,7 @@ function initContactForm() {
     if (activeChannel === 'whatsapp') {
       sendViaWhatsApp(name, email, message);
     } else if (activeChannel === 'linkedin') {
-      sendViaLinkedIn(name, email, message);
+      sendViaLinkedIn();
     } else if (activeChannel === 'email') {
       sendViaEmail(name, email, message);
     }
@@ -324,7 +323,7 @@ function initContactForm() {
 
   function sendViaWhatsApp(name, email, message) {
     const text = encodeURIComponent(
-      `👋 Hi Nitish!
+`👋 Hi Nitish!
 
 I came across your portfolio and would love to connect.
 
@@ -342,50 +341,15 @@ Looking forward to hearing from you! 🙏`
     clearForm();
   }
 
-  function sendViaLinkedIn(name, email, message) {
-    // Build a formatted message identical in style to WhatsApp
-    const liMessage =
-      `Hi Nitish! 👋
-
-I came across your portfolio and would love to connect.
-
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-
-Looking forward to hearing from you!`;
-
-    // Copy message to clipboard so the user can paste it instantly
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(liMessage).then(() => {
-        showStatus('success', '✅ Message copied! LinkedIn is opening — just paste (Ctrl+V / ⌘V) and hit Send.');
-      }).catch(() => {
-        showStatus('success', '✅ LinkedIn is opening — your message is ready, please copy and paste it manually.');
-      });
-    } else {
-      // Fallback: select a temporary textarea
-      const ta = document.createElement('textarea');
-      ta.value = liMessage;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); } catch (e) { }
-      document.body.removeChild(ta);
-      showStatus('success', '✅ LinkedIn is opening — message copied, just paste and send!');
-    }
-
-    // Open LinkedIn direct message compose for Nitish
-    window.open(LINKEDIN_MSG_URL, '_blank', 'noopener,noreferrer');
-    clearForm();
+  function sendViaLinkedIn() {
+    window.open(LINKEDIN_PROFILE, '_blank', 'noopener,noreferrer');
+    showStatus('success', '✅ Opening LinkedIn... Please send a connection request or message there!');
   }
 
   function sendViaEmail(name, email, message) {
     const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
-    const body = encodeURIComponent(
-      `Hi Nitish,
+    const body    = encodeURIComponent(
+`Hi Nitish,
 
 I found your portfolio and wanted to reach out.
 
@@ -409,7 +373,7 @@ ${name}`
 
   function showStatus(type, msg) {
     statusEl.textContent = msg;
-    statusEl.className = `form-status ${type}`;
+    statusEl.className   = `form-status ${type}`;
     statusEl.style.display = 'block';
 
     if (type === 'success') {
@@ -418,13 +382,13 @@ ${name}`
   }
 
   function hideStatus() {
-    statusEl.className = 'form-status';
+    statusEl.className   = 'form-status';
     statusEl.style.display = 'none';
   }
 
   function clearForm() {
-    document.getElementById('senderName').value = '';
-    document.getElementById('senderEmail').value = '';
+    document.getElementById('senderName').value    = '';
+    document.getElementById('senderEmail').value   = '';
     document.getElementById('senderMessage').value = '';
   }
 }
