@@ -1,0 +1,8 @@
+# robots.txt – nitishkumarpandey.com
+# Allow all search engine crawlers to index the full site
+
+User-agent: *
+Allow: /
+
+# Sitemap location (update if you add one)
+# Sitemap: https://nitishkumarpandey.com/sitemap.xml
